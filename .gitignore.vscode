@@ -1,0 +1,5 @@
+# VS Code workspace settings
+.vscode/settings.json
+
+# Keep custom data
+!.vscode/css_custom_data.json
