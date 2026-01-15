@@ -1,5 +1,6 @@
 "use client";
 
+// Antigravity Background with particle morphing animation
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import React, { useMemo, useRef } from 'react';
 import * as THREE from 'three';
@@ -32,50 +33,55 @@ const AntigravityInner: React.FC<AntigravityProps> = ({
             const y = (Math.random() - 0.5) * height;
             const z = (Math.random() - 0.5) * 5;
 
-            // White and Neon Blue Colors
+            // React Logo Colors
             const white = new THREE.Color('#ffffff');
-            const neonBlue = new THREE.Color('#38bdf8');
+            const reactBlue = new THREE.Color('#61dafb');
 
-            // Calculate Target Position for Logo (< >) with WIDER and THICKER strokes
+            // Calculate Target Position for React Logo
             let tx, ty, tz = 0;
-            let pColor = neonBlue;
+            let pColor = reactBlue;
             const section = Math.random();
 
-            // Increased thickness and width of the stroke
-            const strokeWidth = 2.0; // Increased from 1.2 to 2.0
-            const t = Math.random(); // Position along the length
-            const w = (Math.random() - 0.5) * strokeWidth; // Position across the width
-
-            // Wider coordinates - increased spacing and length
-
-            if (section < 0.25) {
-                // TOP LEFT (White)
-                // From Top Tip (-2.5, 4.5) to Vertex (-6.0, 0.5) - WIDER
+            if (section < 0.1) {
+                // NUCLEUS (Central Sphere) - 10% of particles
                 pColor = white;
-                tx = -2.5 + (-3.5 * t) + (w * 0.5);
-                ty = 4.5 + (-4.0 * t) + (w * 0.5);
-            } else if (section < 0.5) {
-                // BOTTOM LEFT (Neon Blue)
-                // From Bottom Tip (-2.5, -4.5) to Vertex (-6.0, -0.5) - WIDER
-                pColor = neonBlue;
-                tx = -2.5 + (-3.5 * t) - (w * 0.5);
-                ty = -4.5 + (4.0 * t) + (w * 0.5);
-            } else if (section < 0.75) {
-                // TOP RIGHT (White)
-                // From Top Tip (2.5, 4.5) to Vertex (6.0, 0.5) - WIDER
-                pColor = white;
-                tx = 2.5 + (3.5 * t) - (w * 0.5);
-                ty = 4.5 + (-4.0 * t) + (w * 0.5);
+                const theta = Math.random() * Math.PI * 2;
+                const phi = Math.acos(2 * Math.random() - 1);
+                const r = 0.8 * Math.cbrt(Math.random()); // Solid sphere
+                tx = r * Math.sin(phi) * Math.cos(theta);
+                ty = r * Math.sin(phi) * Math.sin(theta);
+                tz = r * Math.cos(phi);
             } else {
-                // BOTTOM RIGHT (Neon Blue)
-                // From Bottom Tip (2.5, -4.5) to Vertex (6.0, -0.5) - WIDER
-                pColor = neonBlue;
-                tx = 2.5 + (3.5 * t) + (w * 0.5);
-                ty = -4.5 + (4.0 * t) + (w * 0.5);
-            }
+                // ORBITS (Electron paths) - 90% of particles
+                pColor = reactBlue;
 
-            // Z-depth thickness
-            tz = (Math.random() - 0.5) * 0.5;
+                // Which orbit? (0, 1, or 2)
+                const orbitIndex = Math.floor(Math.random() * 3);
+
+                // Angle along the ellipse
+                const angle = Math.random() * Math.PI * 2;
+
+                // Ellipse dimensions
+                const radiusX = 6.0;
+                const radiusY = 2.0;
+
+                // Base ellipse position
+                const xBase = radiusX * Math.cos(angle);
+                const yBase = radiusY * Math.sin(angle);
+
+                // Tilt rotation (0, 60, 120 degrees converted to radians)
+                const tiltAngle = (orbitIndex * 60 * Math.PI) / 180;
+
+                // Apply 2D rotation
+                tx = xBase * Math.cos(tiltAngle) - yBase * Math.sin(tiltAngle);
+                ty = xBase * Math.sin(tiltAngle) + yBase * Math.cos(tiltAngle);
+
+                // Add some thickness to the orbit lines
+                const thickness = 0.2;
+                tx += (Math.random() - 0.5) * thickness;
+                ty += (Math.random() - 0.5) * thickness;
+                tz = (Math.random() - 0.5) * thickness;
+            }
 
             temp.push({
                 x, y, z,
@@ -212,7 +218,6 @@ const AntigravityInner: React.FC<AntigravityProps> = ({
         <instancedMesh ref={meshRef} args={[undefined, undefined, count]}>
             <boxGeometry args={[0.04, 0.04, 0.04]} />
             <meshBasicMaterial
-                vertexColors
                 transparent
                 opacity={0.8}
                 blending={THREE.AdditiveBlending}

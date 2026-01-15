@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { CommandMenu } from "@/components/command-menu";
-import AntigravityBackground from "@/components/antigravity-background";
-import { SmoothScrollProvider } from "@/components/smooth-scroll-provider";
+import { AntigravityBackground } from "@/components/antigravity-background";
 
 import { FloatingNav } from "@/components/floating-nav";
+import { SmoothScrollProvider } from "@/components/smooth-scroll-provider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -50,4 +50,3 @@ export default function RootLayout({
     </html>
   );
 }
-
