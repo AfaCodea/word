@@ -37,7 +37,8 @@ export function GitHubTechStack({ username, fallbackTech = [] }: GitHubTechStack
         }
     }, [username]);
 
-    if (loading) {
+    // Only show full loader if we have NO data to show
+    if (loading && techStack.length === 0) {
         return (
             <div className="flex items-center gap-2 text-slate-400">
                 <Loader2 className="h-4 w-4 animate-spin" />
@@ -65,12 +66,20 @@ export function GitHubTechStack({ username, fallbackTech = [] }: GitHubTechStack
                     {tech}
                 </Badge>
             ))}
-            {!loading && (
+            {!loading ? (
                 <Badge
                     variant="outline"
                     className="border-white/5 text-xs text-slate-500"
                 >
                     via GitHub API ✓
+                </Badge>
+            ) : (
+                <Badge
+                    variant="outline"
+                    className="border-white/5 text-xs text-slate-500 flex gap-1 items-center"
+                >
+                    <Loader2 className="h-3 w-3 animate-spin" />
+                    Refreshing...
                 </Badge>
             )}
         </div>

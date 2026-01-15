@@ -18,6 +18,7 @@ export function GithubHeatmap({ username }: GithubHeatmapProps) {
             const result = await fetchContributionData(username);
             setData(result);
             setLoading(false);
+            console.log(result);
         }
         if (username) loadData();
     }, [username]);

@@ -33,40 +33,66 @@ let cache: { data: any; timestamp: number } | null = null;
 /**
  * Fetch GitHub user data
  */
-export async function fetchGitHubUser(username: string): Promise<GitHubUser> {
-    const response = await fetch(`https://api.github.com/users/${username}`, {
-        headers: {
-            'Accept': 'application/vnd.github.v3+json',
-        },
-        next: { revalidate: 3600 } // Revalidate every hour
-    });
+export async function fetchGitHubUser(username: string): Promise<GitHubUser | null> {
+    try {
+        const response = await fetch(`https://api.github.com/users/${username}`, {
+            headers: {
+                'Accept': 'application/vnd.github.v3+json',
+            },
+            next: { revalidate: 3600 } // Revalidate every hour
+        });
 
-    if (!response.ok) {
-        throw new Error(`GitHub API error: ${response.statusText}`);
+        if (!response.ok) {
+            if (response.status === 403 || response.status === 429) {
+                console.warn(`GitHub API rate limit exceeded for user ${username}`);
+                return null;
+            }
+            if (response.status === 404) {
+                console.warn(`GitHub user ${username} not found`);
+                return null;
+            }
+            throw new Error(`GitHub API error: ${response.status} ${response.statusText}`);
+        }
+
+        return response.json();
+    } catch (error) {
+        console.warn('Error fetching GitHub user:', error);
+        return null;
     }
-
-    return response.json();
 }
 
 /**
  * Fetch user's public repositories
  */
 export async function fetchGitHubRepos(username: string): Promise<GitHubRepo[]> {
-    const response = await fetch(
-        `https://api.github.com/users/${username}/repos?sort=updated&per_page=100`,
-        {
-            headers: {
-                'Accept': 'application/vnd.github.v3+json',
-            },
-            next: { revalidate: 3600 }
+    try {
+        const response = await fetch(
+            `https://api.github.com/users/${username}/repos?sort=updated&per_page=100`,
+            {
+                headers: {
+                    'Accept': 'application/vnd.github.v3+json',
+                },
+                next: { revalidate: 3600 }
+            }
+        );
+
+        if (!response.ok) {
+            if (response.status === 403 || response.status === 429) {
+                console.warn(`GitHub API rate limit exceeded for repos of ${username}`);
+                return [];
+            }
+            if (response.status === 404) {
+                console.warn(`GitHub repos for ${username} not found`);
+                return [];
+            }
+            throw new Error(`GitHub API error: ${response.status} ${response.statusText}`);
         }
-    );
 
-    if (!response.ok) {
-        throw new Error(`GitHub API error: ${response.statusText}`);
+        return response.json();
+    } catch (error) {
+        console.warn('Error fetching GitHub repos:', error);
+        return [];
     }
-
-    return response.json();
 }
 
 /**

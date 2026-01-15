@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { CommandMenu } from "@/components/command-menu";
-import { ParticleNetwork } from "@/components/particle-network";
+import { AntigravityBackground } from "@/components/antigravity-background";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { FloatingNav } from "@/components/floating-nav";
 import "./globals.css";
@@ -38,7 +38,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <ParticleNetwork />
+          <AntigravityBackground />
           <ThemeToggle />
           <CommandMenu />
           <FloatingNav />
