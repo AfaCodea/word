@@ -9,7 +9,16 @@ export function CloudArchitecture() {
     const gcpServices = ["Cloud Run", "BigQuery", "Firebase", "GKE"];
 
     return (
-        <div className="relative w-full h-full min-h-[250px] bg-white/5 backdrop-blur-3xl rounded-3xl border border-white/10 p-6 flex items-center justify-around overflow-hidden group hover:border-white/20 transition-colors">
+        <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+                duration: 0.5,
+                delay: 0.1,
+                ease: [0.25, 0.46, 0.45, 0.94]
+            }}
+            className="relative w-full h-full min-h-[250px] bg-white/5 backdrop-blur-3xl rounded-3xl border border-white/10 p-6 flex items-center justify-around overflow-hidden group hover:border-white/20 transition-colors"
+        >
             {/* Background Grid */}
             <div className="absolute inset-0 opacity-20 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:20px_20px]"></div>
 
@@ -81,6 +90,6 @@ export function CloudArchitecture() {
                     </TooltipContent>
                 </Tooltip>
             </TooltipProvider>
-        </div>
+        </motion.div>
     )
 }

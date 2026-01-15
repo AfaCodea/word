@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Terminal } from "lucide-react";
 import { useTypingEffect } from "@/hooks/use-typing-effect";
 import { personalInfo } from "@/data/portfolio";
-import { ShootingStars } from "@/components/shooting-stars";
+
 import { SpotifyCard } from "@/components/spotify-card";
 import { MagneticButton } from "@/components/magnetic-button";
 
@@ -15,10 +15,6 @@ export function Hero() {
             {/* Background Glows */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-neon-blue/10 rounded-full blur-[120px] -z-10 pointer-events-none" />
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-neon-indigo/10 rounded-full blur-[100px] -z-10 pointer-events-none" />
-
-            {/* Shooting Stars Animation */}
-            <ShootingStars starColor="#38bdf8" trailColor="#818cf8" minDelay={1000} maxDelay={3000} />
-
             <div className="z-10 container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center mt-8 lg:mt-0">
 
                 {/* Text Content (Left) */}

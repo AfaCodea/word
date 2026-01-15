@@ -17,7 +17,7 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 auto-rows-[minmax(180px,auto)]">
 
           {/* Tech Stack from GitHub API (Span 2) */}
-          <SpotlightCard className="md:col-span-2 row-span-1 p-6 flex flex-col justify-between">
+          <SpotlightCard index={0} className="md:col-span-2 row-span-1 p-6 flex flex-col justify-between">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-slate-400 text-sm font-medium uppercase tracking-wider">Core Stack</h3>
               <span className="text-xs text-slate-600">Live from GitHub</span>
@@ -36,11 +36,11 @@ export default function Home() {
 
           {/* Featured Project (Span 2, Row 2 - Large Card) */}
           {projects.map((project, index) => (
-            <ProjectCard key={index} {...project} featured={project.featured} />
+            <ProjectCard key={index} {...project} featured={project.featured} index={index} />
           ))}
 
           {/* Stats / Dashboard (Span 1) */}
-          <SpotlightCard className="p-6 flex flex-col justify-center items-center text-center gap-2 group">
+          <SpotlightCard index={1} className="p-6 flex flex-col justify-center items-center text-center gap-2 group">
             <div className="p-3 rounded-full bg-neon-indigo/10 text-neon-indigo group-hover:scale-110 transition-transform">
               <Database className="h-6 w-6" />
             </div>
@@ -48,7 +48,7 @@ export default function Home() {
             <span className="text-xs text-slate-400 uppercase tracking-widest">Deployments</span>
           </SpotlightCard>
 
-          <SpotlightCard className="p-6 flex flex-col justify-center items-center text-center gap-2 group">
+          <SpotlightCard index={2} className="p-6 flex flex-col justify-center items-center text-center gap-2 group">
             <div className="p-3 rounded-full bg-neon-blue/10 text-neon-blue group-hover:scale-110 transition-transform">
               <Server className="h-6 w-6" />
             </div>
@@ -62,7 +62,7 @@ export default function Home() {
               <span className="w-8 h-1 bg-neon-blue rounded-full"></span>
               Career Journey
             </h3>
-            <SpotlightCard className="p-8 md:p-12">
+            <SpotlightCard index={3} className="p-8 md:p-12">
               <ExperienceTimeline />
             </SpotlightCard>
           </div>

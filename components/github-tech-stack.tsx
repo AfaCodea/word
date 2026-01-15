@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { Badge } from "@/components/ui/badge";
-import { getTechStack } from "@/lib/github";
+import { useGitHubTechStack } from "@/hooks/use-swr-data";
 import { Loader2 } from "lucide-react";
 
 interface GitHubTechStackProps {
@@ -11,34 +10,13 @@ interface GitHubTechStackProps {
 }
 
 export function GitHubTechStack({ username, fallbackTech = [] }: GitHubTechStackProps) {
-    const [techStack, setTechStack] = useState<string[]>(fallbackTech);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+    const { techStack, isLoading, isError } = useGitHubTechStack(username, fallbackTech);
 
-    useEffect(() => {
-        async function fetchTechStack() {
-            try {
-                setLoading(true);
-                const tech = await getTechStack(username);
-
-                if (tech.length > 0) {
-                    setTechStack(tech.slice(0, 15)); // Limit to 15 items
-                }
-            } catch (err) {
-                console.error('Failed to fetch tech stack:', err);
-                setError('Failed to load from GitHub');
-            } finally {
-                setLoading(false);
-            }
-        }
-
-        if (username) {
-            fetchTechStack();
-        }
-    }, [username]);
+    // Limit to 15 items
+    const displayTech = techStack.slice(0, 15);
 
     // Only show full loader if we have NO data to show
-    if (loading && techStack.length === 0) {
+    if (isLoading && displayTech.length === 0) {
         return (
             <div className="flex items-center gap-2 text-slate-400">
                 <Loader2 className="h-4 w-4 animate-spin" />
@@ -47,7 +25,7 @@ export function GitHubTechStack({ username, fallbackTech = [] }: GitHubTechStack
         );
     }
 
-    if (error && techStack.length === 0) {
+    if (isError && displayTech.length === 0) {
         return (
             <div className="text-slate-500 text-sm">
                 Using fallback tech stack
@@ -57,7 +35,7 @@ export function GitHubTechStack({ username, fallbackTech = [] }: GitHubTechStack
 
     return (
         <div className="flex flex-wrap gap-3">
-            {techStack.map((tech) => (
+            {displayTech.map((tech) => (
                 <Badge
                     key={tech}
                     variant="secondary"
@@ -66,12 +44,12 @@ export function GitHubTechStack({ username, fallbackTech = [] }: GitHubTechStack
                     {tech}
                 </Badge>
             ))}
-            {!loading ? (
+            {!isLoading ? (
                 <Badge
                     variant="outline"
                     className="border-white/5 text-xs text-slate-500"
                 >
-                    via GitHub API ✓
+                    via GitHub API ✓ (SWR)
                 </Badge>
             ) : (
                 <Badge

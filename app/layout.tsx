@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { CommandMenu } from "@/components/command-menu";
-import { AntigravityBackground } from "@/components/antigravity-background";
-import { ThemeToggle } from "@/components/theme-toggle";
+import AntigravityBackground from "@/components/antigravity-background";
+import { SmoothScrollProvider } from "@/components/smooth-scroll-provider";
+
 import { FloatingNav } from "@/components/floating-nav";
 import "./globals.css";
 
@@ -35,16 +36,18 @@ export default function RootLayout({
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
-          enableSystem
+          forcedTheme="dark"
           disableTransitionOnChange
         >
-          <AntigravityBackground />
-          <ThemeToggle />
-          <CommandMenu />
-          <FloatingNav />
-          {children}
+          <SmoothScrollProvider>
+            <AntigravityBackground />
+            <CommandMenu />
+            <FloatingNav />
+            {children}
+          </SmoothScrollProvider>
         </ThemeProvider>
       </body>
     </html>
   );
 }
+

@@ -53,7 +53,7 @@ export function SpotifyCard() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.5, duration: 0.8 }}
-            className="fixed bottom-8 right-8 z-40 hidden lg:flex items-center gap-4 bg-slate-900/80 backdrop-blur-xl border border-white/10 p-3 pr-6 rounded-full shadow-2xl hover:bg-slate-900/90 transition-colors group cursor-pointer"
+            className="fixed top-8 right-8 z-40 hidden lg:flex items-center gap-4 bg-slate-900/80 backdrop-blur-xl border border-white/10 p-3 pr-6 rounded-full shadow-2xl hover:bg-slate-900/90 transition-colors group cursor-pointer"
         >
             <Link href={song.link} target="_blank" className="flex items-center gap-4">
                 {/* Album Art / Icon */}

@@ -14,13 +14,20 @@ interface ProjectCardProps {
     image?: string;
     links: { demo?: string; repo?: string };
     featured?: boolean;
+    index?: number; // Optional index for stagger animation
 }
 
-export function ProjectCard({ title, description, tags, image, links, featured }: ProjectCardProps) {
+export function ProjectCard({ title, description, tags, image, links, featured, index = 0 }: ProjectCardProps) {
     return (
         <motion.div
+            initial={{ opacity: 0, y: 40, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
             whileHover={{ y: -5 }}
-            transition={{ duration: 0.2 }}
+            transition={{
+                duration: 0.6,
+                delay: 0.2 + index * 0.15, // Stagger with initial delay
+                ease: [0.25, 0.46, 0.45, 0.94]
+            }}
             className={featured ? "md:col-span-2 md:row-span-2" : ""}
         >
             <Card className="h-full border-white/5 bg-white/5 backdrop-blur-xl hover:bg-white/10 transition-colors duration-300 overflow-hidden group">

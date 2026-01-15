@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import useSWR from "swr";
 import { fetchContributionData, ContributionData } from "@/lib/github";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
@@ -9,22 +9,25 @@ interface GithubHeatmapProps {
     username: string;
 }
 
+// Custom fetcher that uses our existing function
+const contributionFetcher = async (username: string): Promise<ContributionData | null> => {
+    return fetchContributionData(username);
+};
+
 export function GithubHeatmap({ username }: GithubHeatmapProps) {
-    const [data, setData] = useState<ContributionData | null>(null);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        async function loadData() {
-            const result = await fetchContributionData(username);
-            setData(result);
-            setLoading(false);
-            console.log(result);
+    const { data, isLoading, error } = useSWR<ContributionData | null>(
+        username ? ["github-contributions", username] : null,
+        () => contributionFetcher(username),
+        {
+            revalidateOnFocus: false,
+            dedupingInterval: 60000, // 1 minute
+            refreshInterval: 600000, // Refresh every 10 minutes
+            errorRetryCount: 3,
         }
-        if (username) loadData();
-    }, [username]);
+    );
 
-    if (loading) return <div className="h-24 w-full animate-pulse bg-white/5 rounded-xl mt-4" />;
-    if (!data) return null;
+    if (isLoading) return <div className="h-24 w-full animate-pulse bg-white/5 rounded-xl mt-4" />;
+    if (!data || error) return null;
 
     // Render only last 150 days to fit nicely
     const recentContributions = data.contributions.slice(-140);
