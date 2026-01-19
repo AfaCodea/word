@@ -9,13 +9,13 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
     useEffect(() => {
         // Initialize Lenis smooth scroll
         const lenis = new Lenis({
-            duration: 1.2, // Scroll duration (higher = smoother)
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Easing function for smooth feel
-            orientation: "vertical", // Vertical scroll
-            gestureOrientation: "vertical", // Gesture direction
-            smoothWheel: true, // Enable smooth wheel scrolling
-            touchMultiplier: 2, // Touch scroll speed multiplier
-            infinite: false, // Disable infinite scroll
+            duration: 1.5, // Increased from 1.2 for more "weight" and premium feel
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Exponential easing
+            orientation: "vertical",
+            gestureOrientation: "vertical",
+            smoothWheel: true,
+            touchMultiplier: 1.5, // Slightly reduced for better control
+            infinite: false,
         });
 
         lenisRef.current = lenis;

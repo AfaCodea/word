@@ -14,7 +14,7 @@ interface AntigravityProps {
 }
 
 const AntigravityInner: React.FC<AntigravityProps> = ({
-    count = 1500, // Reduced from 3500 for better performance
+    count = 1200, // Reduced from 1500 for smoother performance
     color = '#03a3f3', // Sky 500 (Electric Blue)
     mouseRepulsion = 1.0,
     flowFieldScale = 0.05
@@ -255,7 +255,7 @@ const AntigravityInner: React.FC<AntigravityProps> = ({
             let forceX = 0;
             let forceY = 0;
 
-            if (i % 3 === 0) { // Only process every 3rd particle for mouse interaction
+            if (i % 2 === 0) { // Process every 2nd particle (50%) for better responsiveness
                 const dx = p.x - mouseX;
                 const dy = p.y - mouseY;
                 const dist = Math.sqrt(dx * dx + dy * dy);
