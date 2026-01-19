@@ -18,9 +18,52 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+
 export const metadata: Metadata = {
-  title: "Future Portfolio | Cloud & Fullstack",
-  description: "Senior Full-stack Developer Portfolio",
+  metadataBase: new URL('https://your-domain.com'),
+  title: {
+    default: "Agil Prasunza | Full-stack Developer & Cloud Architect",
+    template: "%s | Agil Prasunza"
+  },
+  description: "Senior Full-stack Developer specializing in Next.js, TypeScript, React, AWS, and cloud architecture. Building scalable web applications and modern cloud infrastructure solutions.",
+  keywords: ["full-stack developer", "cloud architect", "next.js developer", "typescript", "aws", "react developer", "cloud infrastructure", "web development", "agil prasunza"],
+  authors: [{ name: "Agil Prasunza" }],
+  creator: "Agil Prasunza",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://your-domain.com",
+    title: "Agil Prasunza | Full-stack Developer & Cloud Architect",
+    description: "Portfolio showcasing full-stack development, cloud architecture, and modern web application projects",
+    siteName: "Agil Prasunza Portfolio",
+    images: [{
+      url: "/og-image.jpg",
+      width: 1200,
+      height: 630,
+      alt: "Agil Prasunza - Full-stack Developer Portfolio"
+    }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Agil Prasunza | Full-stack Developer",
+    description: "Portfolio showcasing full-stack development and cloud architecture projects",
+    images: ["/og-image.jpg"],
+    creator: "@yourtwitterhandle"
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    google: 'your-google-verification-code',
+  },
 };
 
 export default function RootLayout({

@@ -2,9 +2,9 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, Terminal } from "lucide-react";
+import Image from "next/image";
 import { useTypingEffect } from "@/hooks/use-typing-effect";
 import { personalInfo } from "@/data/portfolio";
-
 import { SpotifyCard } from "@/components/spotify-card";
 import { MagneticButton } from "@/components/magnetic-button";
 
@@ -21,7 +21,7 @@ export function Hero() {
                 <motion.div
                     initial={{ opacity: 0, x: -30 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    transition={{ duration: 0.5, ease: "easeOut" }} // Reduced from 0.8
                     className="flex flex-col items-center lg:items-start text-center lg:text-left order-2 lg:order-1"
                 >
                     <div className="flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full border border-neon-blue/30 bg-neon-blue/5 text-xs font-medium tracking-widest uppercase text-neon-blue shadow-[0_0_10px_rgba(56,189,248,0.2)]">
@@ -29,7 +29,7 @@ export function Hero() {
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon-blue opacity-75"></span>
                             <span className="relative inline-flex rounded-full h-2 w-2 bg-neon-blue"></span>
                         </span>
-                        Software Engineer
+                        Portfolio
                     </div>
 
                     <h1 className="text-3xl sm:text-5xl lg:text-7xl font-black tracking-tight mb-6 leading-tight overflow-visible">
@@ -48,12 +48,19 @@ export function Hero() {
                         <span className="text-neon-blue/80 font-medium text-sm mt-3 block tracking-wide">{personalInfo.tagline}</span>
                     </p>
 
+
                     <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-                        <MagneticButton className="h-14 px-8 rounded-full bg-neon-blue text-deep-bg font-bold flex items-center justify-center shadow-[0_0_20px_rgba(56,189,248,0.4)] transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(56,189,248,0.6)] text-base">
-                            Explore Work <ArrowRight className="ml-2 h-5 w-5" />
+                        <MagneticButton
+                            className="h-14 px-8 rounded-full bg-neon-blue text-deep-bg font-bold flex items-center justify-center shadow-[0_0_20px_rgba(56,189,248,0.4)] transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(56,189,248,0.6)] focus:ring-2 focus:ring-neon-blue focus:ring-offset-2 focus:ring-offset-deep-bg focus:outline-none text-base"
+                            aria-label="Explore my work and projects"
+                        >
+                            Explore Work <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
                         </MagneticButton>
-                        <MagneticButton className="h-14 px-8 rounded-full border border-white/10 text-white bg-white/5 backdrop-blur-sm flex items-center justify-center hover:bg-white/10 hover:border-white/20 transition-all text-base">
-                            <Terminal className="mr-2 h-5 w-5" /> View Tech Stack
+                        <MagneticButton
+                            className="h-14 px-8 rounded-full border border-white/10 text-white bg-white/5 backdrop-blur-sm flex items-center justify-center hover:bg-white/10 hover:border-white/20 transition-all focus:ring-2 focus:ring-neon-blue focus:ring-offset-2 focus:ring-offset-deep-bg focus:outline-none text-base"
+                            aria-label="View my technology stack and skills"
+                        >
+                            <Terminal className="mr-2 h-5 w-5" aria-hidden="true" /> View Tech Stack
                         </MagneticButton>
                     </div>
                 </motion.div>
@@ -62,7 +69,7 @@ export function Hero() {
                 <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                    transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }} // Reduced durations
                     className="relative flex justify-center lg:justify-end order-1 lg:order-2"
                 >
                     <div className="relative w-[280px] h-[280px] sm:w-[350px] sm:h-[350px] lg:w-[420px] lg:h-[420px] group">
@@ -76,10 +83,14 @@ export function Hero() {
                         {/* Image Container */}
                         <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-white/10 bg-slate-900/50 backdrop-blur-sm shadow-2xl transition-transform duration-500 hover:scale-[1.02]">
                             <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent z-10 opacity-40" />
-                            <img
+                            <Image
                                 src="/images/profile.jpg"
-                                alt="Profile"
+                                alt="Agil Prasunza - Full-stack Developer and Cloud Architect"
+                                width={420}
+                                height={420}
                                 className="w-full h-full object-cover object-top grayscale-[20%] group-hover:grayscale-0 transition-all duration-700"
+                                priority
+                                quality={90}
                             />
                         </div>
 
@@ -110,6 +121,6 @@ export function Hero() {
                 backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.1) 1px, transparent 0)',
                 backgroundSize: '40px 40px'
             }}></div>
-        </section >
+        </section>
     )
 }
