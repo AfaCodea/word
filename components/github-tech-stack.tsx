@@ -27,14 +27,8 @@ export function GitHubTechStack({ username, fallbackTech = [] }: GitHubTechStack
 
     if (isError && displayTech.length === 0) {
         return (
-            <div className="flex flex-col gap-2">
-                <div className="text-red-400 text-sm flex items-center gap-2">
-                    <span className="inline-block w-2 h-2 bg-red-400 rounded-full animate-pulse" />
-                    Failed to load from GitHub
-                </div>
-                <div className="text-slate-500 text-xs">
-                    Using fallback tech stack
-                </div>
+            <div className="text-slate-500 text-sm">
+                Using fallback tech stack
             </div>
         );
     }

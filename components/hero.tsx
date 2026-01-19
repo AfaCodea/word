@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, Terminal } from "lucide-react";
-import Image from "next/image";
 import { useTypingEffect } from "@/hooks/use-typing-effect";
 import { personalInfo } from "@/data/portfolio";
 import { SpotifyCard } from "@/components/spotify-card";
@@ -48,19 +47,12 @@ export function Hero() {
                         <span className="text-neon-blue/80 font-medium text-sm mt-3 block tracking-wide">{personalInfo.tagline}</span>
                     </p>
 
-
                     <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-                        <MagneticButton
-                            className="h-14 px-8 rounded-full bg-neon-blue text-deep-bg font-bold flex items-center justify-center shadow-[0_0_20px_rgba(56,189,248,0.4)] transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(56,189,248,0.6)] focus:ring-2 focus:ring-neon-blue focus:ring-offset-2 focus:ring-offset-deep-bg focus:outline-none text-base"
-                            aria-label="Explore my work and projects"
-                        >
-                            Explore Work <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
+                        <MagneticButton className="h-14 px-8 rounded-full bg-neon-blue text-deep-bg font-bold flex items-center justify-center shadow-[0_0_20px_rgba(56,189,248,0.4)] transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(56,189,248,0.6)] text-base">
+                            Explore Work <ArrowRight className="ml-2 h-5 w-5" />
                         </MagneticButton>
-                        <MagneticButton
-                            className="h-14 px-8 rounded-full border border-white/10 text-white bg-white/5 backdrop-blur-sm flex items-center justify-center hover:bg-white/10 hover:border-white/20 transition-all focus:ring-2 focus:ring-neon-blue focus:ring-offset-2 focus:ring-offset-deep-bg focus:outline-none text-base"
-                            aria-label="View my technology stack and skills"
-                        >
-                            <Terminal className="mr-2 h-5 w-5" aria-hidden="true" /> View Tech Stack
+                        <MagneticButton className="h-14 px-8 rounded-full border border-white/10 text-white bg-white/5 backdrop-blur-sm flex items-center justify-center hover:bg-white/10 hover:border-white/20 transition-all text-base">
+                            <Terminal className="mr-2 h-5 w-5" /> View Tech Stack
                         </MagneticButton>
                     </div>
                 </motion.div>
@@ -83,14 +75,10 @@ export function Hero() {
                         {/* Image Container */}
                         <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-white/10 bg-slate-900/50 backdrop-blur-sm shadow-2xl transition-transform duration-500 hover:scale-[1.02]">
                             <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent z-10 opacity-40" />
-                            <Image
+                            <img
                                 src="/images/profile.jpg"
-                                alt="Agil Prasunza - Full-stack Developer and Cloud Architect"
-                                width={420}
-                                height={420}
+                                alt="Profile"
                                 className="w-full h-full object-cover object-top grayscale-[20%] group-hover:grayscale-0 transition-all duration-700"
-                                priority
-                                quality={90}
                             />
                         </div>
 
